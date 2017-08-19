@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Grid, Col, Row} from 'react-bootstrap';
 import Header from './Components/Header';
 import Books from './Components/Books';
+import SearchInput from './Components/SearchInput';
 import axios from 'axios';
 import './App.css';
 
@@ -10,7 +11,7 @@ class App extends Component {
     super();
     this.state = {
       books:[],
-      text:'Harry Potter'
+      text:'Pride & Prejudice'
     }
   }
 
@@ -31,6 +32,12 @@ class App extends Component {
     });
   }
 
+  handleChange(text) {
+    this.setState({
+      text:text
+    }, this.getBooks);
+  }
+
   render() {
     return (
       <div className="App">
@@ -38,6 +45,7 @@ class App extends Component {
         <Grid>
           <Row>
             <Col xs={12} md={12} lg={12}>
+              <SearchInput value={this.state.text} onChange={this.handleChange.bind(this)} />
               <Books books={this.state.books} />
             </Col>
           </Row>
